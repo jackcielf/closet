@@ -36,15 +36,14 @@ const items: MenuItem[] = [
 
 export const Sidebar: React.FC = () => {
   const [menuSelected, setMenuSelected] = useState<string>('');
+	const [collapsed, setCollapsed] = useState(true);
   const location = useLocation();
   const navegate = useNavigate();
-	const [collapsed, setCollapsed] = useState(true);
 
   useEffect(() => {
     setMenuSelected(location.pathname);
-  }, [location]);
+  }, []);
   
-  console.log(menuSelected)
   return (
     <Sider
       theme="dark"

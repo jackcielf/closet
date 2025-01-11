@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Dashboard, Casual, Social } from "./pages";
+import { Home, Casual, Social } from "./pages";
 import { Navigate } from "react-router-dom";
 import { RouteConfig } from "./utils/models/route-config";
 
@@ -7,12 +7,12 @@ export const routes: RouteConfig[]  = [
   {
     path: "*",
     component: Navigate,
-    to: "/home/dashboard"
+    to: "/home"
   },
   {
     path: "/not-found",
     component: Navigate,
-    to: "/home/dashboard"
+    to: "/home"
   },
   {
     path: "/looks/social",
@@ -23,8 +23,8 @@ export const routes: RouteConfig[]  = [
     component: Casual,
   },
   {
-    path: "/home/dashboard",
-    component: Dashboard,
+    path: "/home",
+    component: Home,
   },
 ];
 

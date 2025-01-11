@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   PieChartOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Layout as LayoutAnt, Menu } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./Sidebar.scss";
 
 const { Sider } = LayoutAnt;
@@ -16,7 +16,7 @@ function getItem(
   label: React.ReactNode,
   key: React.Key,
   icon?: React.ReactNode,
-  children?: MenuItem[]
+  children?: MenuItem[],
 ): MenuItem {
   return {
     key,
@@ -27,17 +27,24 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-  getItem("Dashboard", "dashboard", <PieChartOutlined />),
-  getItem("Looks", "look", <UserOutlined />, [
-    getItem("Casuais", "casual"),
-    getItem("Sociais", "social"),
+  getItem("Dashboard", "/home", <PieChartOutlined />),
+  getItem("Looks", "looks", <UserOutlined />, [
+    getItem("Casuais", "/looks/casual"),
+    getItem("Sociais", "/looks/social"),
   ]),
 ];
 
 export const Sidebar: React.FC = () => {
+  const [menuSelected, setMenuSelected] = useState<string>('');
+  const location = useLocation();
   const navegate = useNavigate();
 	const [collapsed, setCollapsed] = useState(true);
 
+  useEffect(() => {
+    setMenuSelected(location.pathname);
+  }, [location]);
+  
+  console.log(menuSelected)
   return (
     <Sider
       theme="dark"
@@ -49,7 +56,7 @@ export const Sidebar: React.FC = () => {
       
       <Menu
         theme="dark"
-        defaultSelectedKeys={["dashboard"]}
+        selectedKeys={[menuSelected]}
         mode="inline"
         items={items}
         onClick={({key}) => navegate(key)}

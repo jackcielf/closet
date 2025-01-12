@@ -35,14 +35,14 @@ const items: MenuItem[] = [
 ];
 
 export const Sidebar: React.FC = () => {
-  const [menuSelected, setMenuSelected] = useState<string>('');
-	const [collapsed, setCollapsed] = useState(true);
+  const [menuSelected, setMenuSelected] = useState<string>('/home');
+	const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
   const navegate = useNavigate();
 
   useEffect(() => {
     setMenuSelected(location.pathname);
-  }, []);
+  }, [location]);
   
   return (
     <Sider

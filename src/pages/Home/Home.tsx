@@ -7,7 +7,7 @@ export const Home: React.FC = () => {
     <> 
       <h1>Inicio</h1>
       
-      <Card></Card>
+      <Card />
     </>
   );
 };

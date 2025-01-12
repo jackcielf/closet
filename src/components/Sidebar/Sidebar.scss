@@ -2,20 +2,13 @@ h3 {
   text-align: center;
 }
 
-.sidebar__add-clothes {
-  width: 100%;
+.sidebar__add-clothes, 
+.sidebar__add-user {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   padding: 4px;
 
   .button {
     width: 100%;
-    color: #000;
-    background-color: rgb(255, 164, 217);
-    
-    &:hover {
-      background: rgba(255, 164, 217, 0.8) !important;
-    }
   }
 }

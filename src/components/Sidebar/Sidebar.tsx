@@ -8,6 +8,7 @@ import { Button } from "antd";
 
 import "./Sidebar.scss";
 import { RegisterClothes } from "../RegisterClothes/RegisterClothes";
+import { RegisterUser } from "../Modal/Modal";
 
 const { Sider } = LayoutAnt;
 
@@ -44,7 +45,8 @@ const items: MenuItem[] = [
 export const Sidebar: React.FC = () => {
   const [menuSelected, setMenuSelected] = useState<string>("/home");
   const [collapsed, setCollapsed] = useState(false);
-  const [openCadUserDrawer, setOpenCadUserDrawer] = useState(false);
+  const [openCadClotheDrawer, setOpenCadClotheDrawer] = useState(false);
+  const [openCadUserModal, setOpenCadUserModal] = useState(false);
 
   const location = useLocation();
   const navegate = useNavigate();
@@ -53,12 +55,20 @@ export const Sidebar: React.FC = () => {
     setMenuSelected(location.pathname);
   }, [location]);
 
-  const showCadUserDrawer = () => {
-    setOpenCadUserDrawer(true);
+  const showCadClotheDrawer = () => {
+    setOpenCadClotheDrawer(true);
   };
 
-  const hideCadUserDrawer = () => {
-    setOpenCadUserDrawer(false);
+  const hideCadClotheDrawer = () => {
+    setOpenCadClotheDrawer(false);
+  };
+
+  const showCadUserModal = () => {
+    setOpenCadUserModal(true);
+  };
+
+  const hideCadUserModal = () => {
+    setOpenCadUserModal(false);
   };
 
   return (
@@ -68,7 +78,14 @@ export const Sidebar: React.FC = () => {
       collapsed={collapsed}
       onCollapse={(value) => setCollapsed(value)}
     >
-      <h3>LOGO</h3>
+      <div className="sidebar__add-user">
+        <Button
+          className="button"
+          onClick={showCadUserModal}
+        >
+          Registrar-me
+        </Button>
+      </div>
 
       <Menu
         theme="dark"
@@ -81,13 +98,15 @@ export const Sidebar: React.FC = () => {
       <div className="sidebar__add-clothes">
         <Button
           className="button"
-          type="primary"
-          onClick={showCadUserDrawer}
+          color="pink"
+          variant="solid"
+          onClick={showCadClotheDrawer}
           icon={<PlusOutlined />}
         ></Button>
       </div>
 
-      <RegisterClothes open={openCadUserDrawer} hide={hideCadUserDrawer} />
+      <RegisterClothes open={openCadClotheDrawer} hide={hideCadClotheDrawer} />
+      <RegisterUser open={openCadUserModal} hide={hideCadUserModal} />
     </Sider>
   );
 };

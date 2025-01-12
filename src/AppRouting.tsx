@@ -15,6 +15,10 @@ export const routes: RouteConfig[]  = [
     to: "/home"
   },
   {
+    path: "/home",
+    component: Home,
+  },
+  {
     path: "/looks/social",
     component: Social,
   },
@@ -23,7 +27,19 @@ export const routes: RouteConfig[]  = [
     component: Casual,
   },
   {
-    path: "/home",
+    path: "/inventario/vestidos",
+    component: Home,
+  },
+  {
+    path: "/inventario/blusas",
+    component: Home,
+  },
+  {
+    path: "/inventario/calcas",
+    component: Home,
+  },
+  {
+    path: "/inventario/saias",
     component: Home,
   },
 ];

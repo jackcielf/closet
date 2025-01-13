@@ -100,7 +100,7 @@ export const Sidebar: React.FC = () => {
     >
       <div className="sidebar__add-user">
         {hasUserRegistered ? (
-          <div className="avatar">
+          <div className="avatar" onClick={() => showHideCadUserModal(true)}>
             <Avatar
               style={{ backgroundColor: "#eb2f96" }}
               icon={<UserOutlined />}

@@ -1,14 +1,23 @@
-import React from 'react';
-import { Card as CardAnt } from 'antd';
+import React from "react";
+import { Card as CardAnt } from "antd";
+import './Card.scss';
 
-const { Meta } = CardAnt;
+interface Clothe {
+  clothes: Array<{
+    image: string;
+    inventary: string;
+    look: string;
+  }>;
+}
 
-export const Card: React.FC = () => (
-  <CardAnt
-    hoverable
-    style={{ width: 240 }}
-    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-  >
-    <Meta title="Europe Street beat" description="www.instagram.com" />
-  </CardAnt>
+export const Card: React.FC<Clothe> = ({ clothes }) => (
+  <section className="card__list">
+    {clothes.map((item) => (
+      <CardAnt
+        className="card"
+        hoverable
+        cover={<img alt="Roupas" src={item.image} />}
+      ></CardAnt>
+    ))}
+  </section>
 );

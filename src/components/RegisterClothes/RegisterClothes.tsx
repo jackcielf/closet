@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Col,
   Drawer,
   Form,
   Input,
+  notification,
   Row,
   Select,
   Space,
 } from "antd";
+import { NotificationPlacement } from "antd/es/notification/interface";
 
 const { Option } = Select;
 
@@ -17,12 +19,74 @@ interface RegisterClothesDrawerProps {
   hide: () => void;
 }
 
+const Context = React.createContext({ name: "Default" });
+
 export const RegisterClothes: React.FC<RegisterClothesDrawerProps> = ({
   open,
   hide,
 }) => {
+    const [form] = Form.useForm();
+    const [api, contextHolder] = notification.useNotification();
+    const [imageBase64, setImageBase64] = useState<string | null>(null);
+    
+    const registrarClothes = () => {
+      form
+        .validateFields()
+        .then((values) => {
+          const existingClothes = JSON.parse(localStorage.getItem("clothes") || "[]");
+
+          const newClothes = [
+            ...existingClothes,
+            {
+              ...values,
+              image: imageBase64,
+            },
+          ];
+
+          localStorage.setItem("clothes", JSON.stringify(newClothes));
+  
+          hide();
+          openNotification("topRight", "Sucesso!", "Salvo com sucesso!");
+  
+          resetarForm();
+        })
+        .catch((error) => {
+          console.error("Formulário inválido:", error);
+        });
+    };
+
+    const resetarForm = () => {
+      form.resetFields();
+      setImageBase64(null);
+    }
+  
+    const openNotification = (
+      placement: NotificationPlacement,
+      message: string,
+      content: string
+    ) => {
+      api.info({
+        message: message,
+        description: <Context.Consumer>{() => content}</Context.Consumer>,
+        placement,
+      });
+    };
+
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          setImageBase64(reader.result as string);
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+    
   return (
     <>
+      {contextHolder}
+
       <Drawer
         title="Nova roupa"
         width={500}
@@ -36,13 +100,13 @@ export const RegisterClothes: React.FC<RegisterClothesDrawerProps> = ({
         extra={
           <Space>
             <Button onClick={hide}>Cancelar</Button>
-            <Button onClick={hide} type="primary">
+            <Button onClick={() => registrarClothes()} type="primary">
               Cadastrar
             </Button>
           </Space>
         }
       >
-        <Form layout="vertical">
+        <Form form={form} layout="vertical">
           <Row gutter={16}>
             <Col span={24}>
               <Form.Item
@@ -50,7 +114,7 @@ export const RegisterClothes: React.FC<RegisterClothesDrawerProps> = ({
                 label="Imagem"
                 rules={[{ required: true, message: "Imagem obrigatória!" }]}
               >
-                <Input type="file" />
+                <Input type="file" onChange={handleImageChange} />
               </Form.Item>
             </Col>
           </Row>
@@ -62,8 +126,10 @@ export const RegisterClothes: React.FC<RegisterClothesDrawerProps> = ({
                 label="Inventário"
               >
                 <Select placeholder="Selecione um inventário">
-                  <Option value="xiao">Xiaoxiao Fu</Option>
-                  <Option value="mao">Maomao Zhou</Option>
+                  <Option value="vestidos">Vestidos</Option>
+                  <Option value="blusas">Blusas</Option>
+                  <Option value="calcas">Calças</Option>
+                  <Option value="saias">Saias</Option>
                 </Select>
               </Form.Item>
             </Col>
@@ -73,8 +139,8 @@ export const RegisterClothes: React.FC<RegisterClothesDrawerProps> = ({
                 label="Looks"
               >
                 <Select placeholder="Selecione um look">
-                  <Option value="private">Private</Option>
-                  <Option value="public">Public</Option>
+                  <Option value="casuais">Casuais</Option>
+                  <Option value="sociais">Sociais</Option>
                 </Select>
               </Form.Item>
             </Col>

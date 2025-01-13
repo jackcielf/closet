@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { PieChartOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  PieChartOutlined,
+  UserAddOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { Layout as LayoutAnt, Menu } from "antd";
+import { Avatar, Layout as LayoutAnt, Menu } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
 import { Button } from "antd";
@@ -42,11 +46,17 @@ const items: MenuItem[] = [
   ]),
 ];
 
+interface User {
+  name: string;
+}
+
 export const Sidebar: React.FC = () => {
   const [menuSelected, setMenuSelected] = useState<string>("/home");
   const [collapsed, setCollapsed] = useState(false);
   const [openCadClotheDrawer, setOpenCadClotheDrawer] = useState(false);
   const [openCadUserModal, setOpenCadUserModal] = useState(false);
+  const [hasUserRegistered, setHasUserRegistered] = useState(false);
+  const [user, setUser] = useState<User>();
 
   const location = useLocation();
   const navegate = useNavigate();
@@ -71,6 +81,16 @@ export const Sidebar: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+
+    if (user) {
+      const userData = JSON.parse(user);
+      setUser(userData);
+      setHasUserRegistered(true);
+    }
+  }, []);
+
   return (
     <Sider
       theme="dark"
@@ -79,13 +99,25 @@ export const Sidebar: React.FC = () => {
       onCollapse={(value) => setCollapsed(value)}
     >
       <div className="sidebar__add-user">
-        <Button
-          className="button"
-          onClick={() => showHideCadUserModal(true)}
-        >
-          Registrar-me
-        </Button>
+        {hasUserRegistered ? (
+          <div className="avatar">
+            <Avatar
+              style={{ backgroundColor: "#eb2f96" }}
+              icon={<UserOutlined />}
+              size="large"
+            />
+            {!collapsed ? <span>{user?.name}</span> : ""}
+          </div>
+        ) : (
+          <Button
+            className="button"
+            onClick={() => showHideCadUserModal(true)}
+            icon={<UserAddOutlined />}
+          ></Button>
+        )}
       </div>
+
+      <hr />
 
       <Menu
         theme="dark"
@@ -105,8 +137,14 @@ export const Sidebar: React.FC = () => {
         ></Button>
       </div>
 
-      <RegisterClothes open={openCadClotheDrawer} hide={() => showHideCadClotheDrawer(false)} />
-      <RegisterUser open={openCadUserModal} hide={() => showHideCadUserModal(false)} />
+      <RegisterClothes
+        open={openCadClotheDrawer}
+        hide={() => showHideCadClotheDrawer(false)}
+      />
+      <RegisterUser
+        open={openCadUserModal}
+        hide={() => showHideCadUserModal(false)}
+      />
     </Sider>
   );
 };

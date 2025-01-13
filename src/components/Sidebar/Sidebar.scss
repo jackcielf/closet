@@ -1,7 +1,3 @@
-h3 {
-  text-align: center;
-}
-
 .sidebar__add-clothes, 
 .sidebar__add-user {
   display: flex;
@@ -11,4 +7,18 @@ h3 {
   .button {
     width: 100%;
   }
+}
+
+.sidebar__add-user {
+  .avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 12px;
+  }
+}
+
+hr {
+  border: none;
+  border-top: 3px solid rgba(255, 255, 255, 0.3);;
 }

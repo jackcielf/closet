@@ -8,7 +8,7 @@ import { Button } from "antd";
 
 import "./Sidebar.scss";
 import { RegisterClothes } from "../RegisterClothes/RegisterClothes";
-import { RegisterUser } from "../Modal/Modal";
+import { RegisterUser } from "../RegisterUser/RegisterUser";
 
 const { Sider } = LayoutAnt;
 
@@ -55,20 +55,20 @@ export const Sidebar: React.FC = () => {
     setMenuSelected(location.pathname);
   }, [location]);
 
-  const showCadClotheDrawer = () => {
-    setOpenCadClotheDrawer(true);
+  const showHideCadClotheDrawer = (show: boolean) => {
+    if (show) {
+      setOpenCadClotheDrawer(true);
+    } else {
+      setOpenCadClotheDrawer(false);
+    }
   };
 
-  const hideCadClotheDrawer = () => {
-    setOpenCadClotheDrawer(false);
-  };
-
-  const showCadUserModal = () => {
-    setOpenCadUserModal(true);
-  };
-
-  const hideCadUserModal = () => {
-    setOpenCadUserModal(false);
+  const showHideCadUserModal = (show: boolean) => {
+    if (show) {
+      setOpenCadUserModal(true);
+    } else {
+      setOpenCadUserModal(false);
+    }
   };
 
   return (
@@ -81,7 +81,7 @@ export const Sidebar: React.FC = () => {
       <div className="sidebar__add-user">
         <Button
           className="button"
-          onClick={showCadUserModal}
+          onClick={() => showHideCadUserModal(true)}
         >
           Registrar-me
         </Button>
@@ -100,13 +100,13 @@ export const Sidebar: React.FC = () => {
           className="button"
           color="pink"
           variant="solid"
-          onClick={showCadClotheDrawer}
+          onClick={() => showHideCadClotheDrawer(true)}
           icon={<PlusOutlined />}
         ></Button>
       </div>
 
-      <RegisterClothes open={openCadClotheDrawer} hide={hideCadClotheDrawer} />
-      <RegisterUser open={openCadUserModal} hide={hideCadUserModal} />
+      <RegisterClothes open={openCadClotheDrawer} hide={() => showHideCadClotheDrawer(false)} />
+      <RegisterUser open={openCadUserModal} hide={() => showHideCadUserModal(false)} />
     </Sider>
   );
 };

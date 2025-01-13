@@ -13,6 +13,9 @@ interface CadUserModalProps {
 }
 
 export const RegisterUser: React.FC<CadUserModalProps> = ({ open, hide }) => {
+
+  
+
   return (
     <>
       <Modal

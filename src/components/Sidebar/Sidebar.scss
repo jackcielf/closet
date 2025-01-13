@@ -10,15 +10,17 @@
 }
 
 .sidebar__add-user {
+  margin-top: 8px;
+  
   .avatar {
     display: flex;
     align-items: center;
     justify-content: center;
     column-gap: 12px;
+    color: #fff;
   }
 }
 
 hr {
-  border: none;
-  border-top: 3px solid rgba(255, 255, 255, 0.3);;
+  border-top: 3px solid #fff !important;
 }

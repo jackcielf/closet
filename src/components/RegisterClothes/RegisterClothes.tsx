@@ -49,6 +49,7 @@ export const RegisterClothes: React.FC<RegisterClothesDrawerProps> = ({
           openNotification("topRight", "Sucesso!", "Salvo com sucesso!");
   
           resetarForm();
+          reloadWindow();
         })
         .catch((error) => {
           console.error("Formulário inválido:", error);
@@ -58,6 +59,12 @@ export const RegisterClothes: React.FC<RegisterClothesDrawerProps> = ({
     const resetarForm = () => {
       form.resetFields();
       setImageBase64(null);
+    }
+
+    const reloadWindow = () => {
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
     }
   
     const openNotification = (
@@ -92,16 +99,11 @@ export const RegisterClothes: React.FC<RegisterClothesDrawerProps> = ({
         width={500}
         onClose={hide}
         open={open}
-        styles={{
-          body: {
-            paddingBottom: 80,
-          },
-        }}
         extra={
           <Space>
             <Button onClick={hide}>Cancelar</Button>
             <Button onClick={() => registrarClothes()} type="primary">
-              Cadastrar
+              Salvar
             </Button>
           </Space>
         }

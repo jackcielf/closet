@@ -24,6 +24,7 @@ export const RegisterUser: React.FC<CadUserModalProps> = ({ open, hide }) => {
         openNotification("topRight", "Sucesso!", "Registrado com sucesso!");
 
         form.resetFields();
+        reloadWindow();
       })
       .catch((error) => {
         console.error("Formulário inválido:", error);
@@ -41,6 +42,12 @@ export const RegisterUser: React.FC<CadUserModalProps> = ({ open, hide }) => {
       placement,
     });
   };
+
+  const reloadWindow = () => {
+    setTimeout(() => {
+      window.location.reload();
+    }, 1500);
+  }
 
   return (
     <>

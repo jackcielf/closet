@@ -1,6 +1,6 @@
 import React from "react";
 import { Card as CardAnt } from "antd";
-import './Card.scss';
+import "./Card.scss";
 
 interface Clothe {
   clothes: Array<{
@@ -11,10 +11,10 @@ interface Clothe {
 }
 
 export const Card: React.FC<Clothe> = ({ clothes }) => (
-  <section className="card__list">
+  <section className="card__list d-flex row m-0">
     {clothes.map((item) => (
       <CardAnt
-        className="card"
+        className="card col p-0"
         hoverable
         cover={<img alt="Roupas" src={item.image} />}
       ></CardAnt>

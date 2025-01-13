@@ -1,14 +1,16 @@
 .card__list {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
   gap: 16px;
-  flex-wrap: wrap;
 
   .card {
-    min-width: 180px;
-    width: 20%;
-    display: flex;
-    align-items: center;
-    border: 3px solid #00000015;
+    min-height: 250px;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    border: 3px solid hsla(0, 0%, 0%, 0.08);
+    flex: 1 1 calc((100% - (4 * 16px)) / 1);
+    box-sizing: border-box; 
 
     .ant-card-body {
       display: none;
@@ -16,6 +18,38 @@
 
     .ant-card-cover img {
       border-radius: 0px;
+    }
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .card__list {
+    .card {
+      flex: 1 1 calc((100% - (4 * 16px)) / 2);
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .card__list {
+    .card {
+      flex: 1 1 calc((100% - (4 * 16px)) / 3);
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .card__list {
+    .card {
+      flex: 1 1 calc((100% - (4 * 16px)) / 5);
+    }
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .card__list {
+    .card {
+      flex: 1 1 calc((100% - (4 * 16px)) / 5);
     }
   }
 }

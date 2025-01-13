@@ -12,8 +12,9 @@ interface Clothe {
 
 export const Card: React.FC<Clothe> = ({ clothes }) => (
   <section className="card__list d-flex row m-0">
-    {clothes.map((item) => (
+    {clothes.map((item, index) => (
       <CardAnt
+        key={index}
         className="card col p-0"
         hoverable
         cover={<img alt="Roupas" src={item.image} />}

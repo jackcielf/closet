@@ -101,7 +101,6 @@ export const RegisterClothes: React.FC<RegisterClothesDrawerProps> = ({
         open={open}
         extra={
           <Space>
-            <Button onClick={hide}>Cancelar</Button>
             <Button onClick={() => registrarClothes()} type="primary">
               Salvar
             </Button>

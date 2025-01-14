@@ -52,7 +52,7 @@ interface User {
 
 export const Sidebar: React.FC = () => {
   const [menuSelected, setMenuSelected] = useState<string>("/home");
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const [openCadClotheDrawer, setOpenCadClotheDrawer] = useState(false);
   const [openCadUserModal, setOpenCadUserModal] = useState(false);
   const [hasUserRegistered, setHasUserRegistered] = useState(false);
